@@ -1,0 +1,2 @@
+#Exclude build folders. This stuff should never be added to the repo. It will be downloaded during build time.
+Temp/

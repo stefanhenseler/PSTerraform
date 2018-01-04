@@ -1,0 +1,8 @@
+{
+    "SourceRootName": "Source",
+    "TestResultFolderName": "test-reports",
+    "WorkingDir": "Temp",
+    "DependenciesFolderName": "Dependencies",
+    "RepositoryName": "LocalRepo"
+}
+
