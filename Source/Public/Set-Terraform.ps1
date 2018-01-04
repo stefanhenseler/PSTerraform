@@ -1,4 +1,4 @@
-function Apply-Terraform {
+function Set-Terraform {
 
     Param(
         [Parameter(Mandatory=$false,Position=1)]
