@@ -1,4 +1,4 @@
- function Set-SRVariablesFromJson {
+ function Set-VariablesFromJson {
     <#
     .SYNOPSIS
         Reads a json file and sets environment variables.
@@ -62,7 +62,7 @@
 New-Item -Path Env:BHBuildRoot -Value $PSScriptRoot -Force | Out-Null
 New-Item -Path Env:BHProjectRoot -Value $((Get-Item $PSScriptRoot).Parent.FullName) -Force | Out-Null
 
-Set-SRVariablesFromJson -Path (Join-Path $Env:BHBuildRoot 'variables.json')
+Set-VariablesFromJson -Path (Join-Path $Env:BHBuildRoot 'variables.json')
 
 New-Item -Path Env:BHWorkingDirPath -Value (Join-Path $Env:BHProjectRoot $ENV:BHWorkingDir) -Force | Out-Null          
 
