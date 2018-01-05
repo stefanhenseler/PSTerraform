@@ -17,7 +17,7 @@ function Invoke-Azcli {
     $Params = @{}
 
     if ($PSBoundParameters['ArgumentList']) {
-        $Params['Parameters'] = $PSBoundParameters['ArgumentList']
+        $Params['ArgumentList'] = $PSBoundParameters['ArgumentList']
     }
 
     $Params['Attach'] = $PSBoundParameters['Attach']
