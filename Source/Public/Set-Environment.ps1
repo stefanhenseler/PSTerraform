@@ -15,9 +15,6 @@ function Set-Environment {
         New-Item -Path $Path -Force -ItemType Container
     }
 
-    # Get the build secrets module from PSGallery
-    Save-Module PSBuildSecrets -Path $Path -Repository PSGallery
-    Import-Module (Join-Path $Path PSBuildSecrets)
     Set-BuildSecrets -KeyVaultName $VaultName -Verbose
     
 }

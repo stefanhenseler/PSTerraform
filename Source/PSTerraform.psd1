@@ -51,7 +51,7 @@ Description = 'This module contains wrapper functions for teraform and azure cli
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
+RequiredModules = @('PSBuildSecrets')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
