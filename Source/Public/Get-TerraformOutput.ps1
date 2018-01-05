@@ -22,7 +22,7 @@ function Get-TerraformOutput {
      
     Write-Verbose "Current location is [$(Get-Location)]"
     
-    $Output = Invoke-Terraform @Params -NoConsoleOutput
+    $Output = Invoke-Terraform @Params
 
     Write-Output $Output.Trim()
 
