@@ -9,21 +9,24 @@ function Invoke-Azcli {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$false,Position=1)]
-        [String[]]$ArgumentList
+        [String[]]$ArgumentList,
+        [Parameter(Mandatory=$false)]
+        [switch]$Attach
     )
-
 
     $Params = @{}
 
     if ($PSBoundParameters['ArgumentList']) {
         $Params['Parameters'] = $PSBoundParameters['ArgumentList']
     }
+
+    $Params['Attach'] = $PSBoundParameters['Attach']
     
     if ($PSBoundParameters['Verbose']){
         $Params['Attach'] = $true
     }
 
-     # Invoke Terraform and process result
+     # Invoke azure cli and process result
      $Result = Invoke-Process -PassThru -Path 'az' @Params -CreateNoWindow
 
      if ($Result.ExitCode -ne 0) {

@@ -13,7 +13,7 @@ function Initialize-Terraform {
         $Params['Path'] = $PSBoundParameters['Path']
     }
 
-    Set-Environment $VaultName
+    Set-Environment -VaultName $VaultName
 
     $Validate = @()
     if (-not $env:TF_VAR_backend_access_key) {$Validate += "[TF_VAR_backend_access_key enviornment] variable is not set"}
@@ -29,5 +29,5 @@ function Initialize-Terraform {
                                         "-backend-config=`"storage_account_name=$env:TF_VAR_backend_storage_account_name`"",
                                         "-backend-config=`"container_name=$env:TF_VAR_backend_container_name`""
                                     )`
-                     @Params
+                     @Params -Attach
 }

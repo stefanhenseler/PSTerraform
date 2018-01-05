@@ -1,4 +1,4 @@
-function Invoke-Terraform {
+function Invoke-Vagrant {
     param ( 
         [Parameter(Mandatory=$false,Position=1)]
         [string[]]$ArgumentList,
@@ -25,10 +25,10 @@ function Invoke-Terraform {
             Set-Location $Path
         }
         
-        Write-Verbose "Executing Terraform in location [$(Get-Location)]"
+        Write-Verbose "Executing vagrant in location [$(Get-Location)]"
 
         # Invoke Terraform and process result
-        $Result = Invoke-Process -WorkingDirectory (get-location | Select-Object -ExpandProperty Path) -PassThru -Path 'terraform' @Params -Asynchronous
+        $Result = Invoke-Process -WorkingDirectory (Get-Location | Select-Object -ExpandProperty Path) -PassThru -Path 'vagrant' @Params -Asynchronous
 
         if ($Result.ExitCode -ne 0) {
             throw "StdErr: $($Result.StdErr)`nStdOut: $($Result.StdOut)`nExitCode: $($Result.ExitCode)"

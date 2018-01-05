@@ -13,9 +13,9 @@ function Set-Terraform {
 
     # Execute Terraform config
     Write-Verbose "Creating plan with command 'terraform plan -out=./create.plan'"
-    Invoke-Terraform -ArgumentList "plan","-out=`"./create.plan`"" -Path $Path
+    Invoke-Terraform -ArgumentList "plan","-out=`"./create.plan`"" -Path $Path -Attach
     Write-Verbose "Applying plan with command 'terraform apply ./create.plan'"
-    Invoke-Terraform -ArgumentList "apply","./create.plan" -Path $Path
+    Invoke-Terraform -ArgumentList "apply","./create.plan" -Path $Path -Attach
 
     Remove-Item -Path (Join-Path $Path "/create.plan") -Force
 

@@ -8,7 +8,7 @@ Function Invoke-Process {
     .PARAMETER Path
         Path to the file to be executed. If the file is located directly in the "Files" directory of the App Deploy Toolkit, only the file name needs to be specified.
         Otherwise, the full path of the file must be specified. If the files is in a subdirectory of "Files", use the "$dirFiles" variable as shown in the example.
-    .PARAMETER Parameters
+    .PARAMETER ArgumentList
         Arguments to be passed to the executable
     .PARAMETER SecureParameters
         Hides all parameters passed to the executable from the Toolkit log file
@@ -62,7 +62,7 @@ Function Invoke-Process {
             [Parameter(Mandatory=$false)]
             [Alias('Arguments')]
             [ValidateNotNullorEmpty()]
-            [string[]]$Parameters,
+            [string[]]$ArgumentList,
             [Parameter(Mandatory=$false)]
             [switch]$SecureParameters = $false,
             [Parameter(Mandatory=$false)]
@@ -167,7 +167,7 @@ Function Invoke-Process {
                     $processStartInfo.RedirectStandardOutput = $true
                     $processStartInfo.RedirectStandardError = $true
                     $processStartInfo.CreateNoWindow = $CreateNoWindow
-                    If ($Parameters) { $processStartInfo.Arguments = $Parameters }
+                    If ($ArgumentList) { $processStartInfo.Arguments = $ArgumentList }
                     If ($windowStyle) { $processStartInfo.WindowStyle = $WindowStyle }
                     $process = New-Object -TypeName 'System.Diagnostics.Process' -ErrorAction 'Stop'
                     $process.StartInfo = $processStartInfo
@@ -200,8 +200,8 @@ Function Invoke-Process {
                     }
                     ## Start Process
                     Write-Verbose "Working Directory is [$WorkingDirectory]." 
-                    If ($Parameters) {
-                        If ($Parameters -match '-Command \&') {
+                    If ($ArgumentList) {
+                        If ($ArgumentList -match '-Command \&') {
                             Write-Verbose "Executing [$Path [PowerShell ScriptBlock]]..." 
                         }
                         Else {
@@ -209,7 +209,7 @@ Function Invoke-Process {
                                 Write-Verbose "Executing [$Path (Parameters Hidden)]..." 
                             }
                             Else {							
-                                Write-Verbose "Executing [$Path $Parameters]..." 
+                                Write-Verbose "Executing [$Path $ArgumentList]..." 
                             }
                         }
                     }

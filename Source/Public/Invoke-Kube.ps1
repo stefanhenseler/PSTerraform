@@ -1,4 +1,4 @@
-function Invoke-Terraform {
+function Invoke-Kube {
     param ( 
         [Parameter(Mandatory=$false,Position=1)]
         [string[]]$ArgumentList,
@@ -25,14 +25,22 @@ function Invoke-Terraform {
             Set-Location $Path
         }
         
-        Write-Verbose "Executing Terraform in location [$(Get-Location)]"
+        Write-Verbose "Executing vagrant in location [$(Get-Location)]"
 
-        # Invoke Terraform and process result
-        $Result = Invoke-Process -WorkingDirectory (get-location | Select-Object -ExpandProperty Path) -PassThru -Path 'terraform' @Params -Asynchronous
+        # Invoke kubectl and process result
+        $Result = Invoke-Process -PassThru -Path 'kubectl' @Params -CreateNoWindow
 
         if ($Result.ExitCode -ne 0) {
             throw "StdErr: $($Result.StdErr)`nStdOut: $($Result.StdOut)`nExitCode: $($Result.ExitCode)"
-        } else {
+        } 
+  
+        try {
+            # Lets try to convert the json output
+            Write-Output (ConvertFrom-Json -InputObject (-join $Result.StdOut))
+        } catch {
+            "StdErr: $($Result.StdErr) $($_)`nStdOut: $($Result.StdOut)`nExitCode: $($Result.ExitCode)"
+    
+            # If we cant parse it, just write the output to the pipeline
             Write-Output $Result.StdOut
         }
 
